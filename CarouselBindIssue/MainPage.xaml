@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:locals="clr-namespace:CarouselBindIssue"
+             x:Class="CarouselBindIssue.MainPage"
+             x:DataType="locals:MyViewModel">
+    <StackLayout CompressedLayout.IsHeadless="True">
+        <CarouselView ItemsSource="{Binding MyModels}"
+                      CurrentItem="{Binding Current}"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center"
+                      HeightRequest="70"
+                      Margin="12">
+            <CarouselView.ItemTemplate>
+                <DataTemplate x:DataType="locals:MyModel">
+                    <StackLayout CompressedLayout.IsHeadless="True"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center">
+                        <Frame HeightRequest="50"
+                               WidthRequest="200"
+                               BackgroundColor="CornflowerBlue"
+                               CornerRadius="12">
+                            <Label Text="{Binding Name}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   TextColor="White" 
+                                   FontSize="22"
+                                   FontAttributes="Bold"/>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <Label HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Center"
+               LineBreakMode="WordWrap"
+               FontSize="22"
+               FontAttributes="Bold">
+            <Label.Text>
+                <MultiBinding StringFormat="${0} per {1}">
+                    <Binding Path="Current.Price" />
+                    <Binding Path="Current.Name" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+        <Button Text="Change current binding forward"
+                Command="{Binding ChangeBindingCommand}"
+                HorizontalOptions="EndAndExpand"
+                CornerRadius="12"
+                FontSize="22"
+                FontAttributes="Bold" />
+    </StackLayout>
+</ContentPage>
